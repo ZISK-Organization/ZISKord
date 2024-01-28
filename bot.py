@@ -48,7 +48,7 @@ class Bot(commands.Bot):
                             return
                         deadline = datetime.datetime.fromisoformat(resp['deadline'])
                         if datetime.datetime.now() < deadline:
-                            ctx.channel.send("Nejbližší deadline je: " + str(deadline.day) + ". " + str(deadline.month) + ". " + str(deadline.year) + " v " + str(deadline.hour) + ":" + str(deadline.minute) + ".")
+                            await ctx.channel.send("Nejbližší deadline je: " + str(deadline.day) + ". " + str(deadline.month) + ". " + str(deadline.year) + " v " + str(deadline.hour) + ":" + str(deadline.minute) + ".")
                             return
 
 
