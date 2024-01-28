@@ -38,7 +38,7 @@ class Bot(commands.Bot):
             ENDPOINT = '/meta/'
             for year in range(23, 33):
                 for series in range(1, 5):
-                    for task in (1, 5):
+                    for task in range(1, 5):
                         id = str(year) + '0' + str(series) + '0' + str(task)
                         resp = requests.get("https://api.zisk-go.com/tasks/meta?id=" + id).json()
                         if 'error' in resp:
@@ -48,7 +48,7 @@ class Bot(commands.Bot):
                             return
                         deadline = datetime.datetime.fromisoformat(resp['deadline'])
                         if datetime.datetime.now() < deadline:
-                            await ctx.channel.send("Nejbližší deadline je: " + str(deadline.day) + ". " + str(deadline.month) + ". " + str(deadline.year) + " v " + str(deadline.hour) + ":" + str(deadline.minute) + ".")
+                            await ctx.channel.send("Nejbližší deadline je: " + deadline.strftime("%d. %m. %Y v %H:%M") + ".")
                             return
 
 
