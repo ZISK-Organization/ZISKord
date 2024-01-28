@@ -41,7 +41,7 @@ class Bot(commands.Bot):
                     for task in (1, 5):
                         id = str(year) + '0' + str(series) + '0' + str(task)
                         resp = requests.get("https://api.zisk-go.com/tasks/meta?id=" + id).json()
-                        if resp['error']:
+                        if 'error' in resp:
                             await ctx.channel.send("Request on zisk server went wrong")
                             if ctx.message.author.has_role('Organizátor'):
                                 await ctx.channel.send(resp['error'])
