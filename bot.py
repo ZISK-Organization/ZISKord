@@ -70,6 +70,16 @@ class Bot(commands.Bot):
                 # trollíme Kubu
                 await ctx.channel.send("Co se to snažíš vytvořit, že to má reagovat na kakakah?")
 
+            ctx = await self.get_context(message)
+            if ctx.channel.name.endswith('memes') or True:
+                pic_ext = ['.jpg','.png','.jpeg']
+                for file in message.attachments:
+                    for ext in pic_ext:
+                        if file.filename.endswith(ext):
+                            url = 'https://api.zisk-go.com/tasks/uploadMeme'
+                            f = await file.read()
+                            resp = requests.post(url, files={file.filename: f})
+
 
 bot = Bot("!")
 bot.run(TOKEN)
