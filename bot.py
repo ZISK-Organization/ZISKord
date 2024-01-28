@@ -43,7 +43,7 @@ class Bot(commands.Bot):
                         resp = requests.get("https://api.zisk-go.com/tasks/meta?id=" + id).json()
                         if 'error' in resp:
                             await ctx.channel.send("Request on zisk server went wrong")
-                            if ctx.message.author.has_role('Organizátor'):
+                            if 'Organizátor' in map(lambda x: x.name, ctx.message.author.roles):
                                 await ctx.channel.send(resp['error'])
                             return
                         deadline = datetime.datetime.fromisoformat(resp['deadline'])
