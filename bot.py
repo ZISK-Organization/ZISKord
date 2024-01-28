@@ -11,7 +11,6 @@ banTime = 300
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-TOKEN = 'MTA3NDc5MzczMTY5NTMzMzM5Nw.GbEEsy.FchlecbhS2XTLZcWDDY98DSasO3wwtnxbtM8-8'
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
