@@ -65,12 +65,12 @@ class Bot(commands.Bot):
         @self.event
         async def on_message(message):
             await self.process_commands(message)
+            ctx = await self.get_context(message)
 
             if message.content == "kakakah":
                 # trollíme Kubu
                 await ctx.channel.send("Co se to snažíš vytvořit, že to má reagovat na kakakah?")
 
-            ctx = await self.get_context(message)
             if ctx.channel.name.endswith('memes') or True:
                 pic_ext = ['.jpg','.png','.jpeg']
                 for file in message.attachments:
