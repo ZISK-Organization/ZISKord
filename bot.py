@@ -44,7 +44,7 @@ class Bot(commands.Bot):
                         if resp['error']:
                             await ctx.channel.send("Request on zisk server went wrong")
                             if ctx.message.author.has_role('Organizátor'):
-                                ctx.channel.send(resp['error'])
+                                await ctx.channel.send(resp['error'])
                             return
                         deadline = datetime.datetime.fromisoformat(resp['deadline'])
                         if datetime.datetime.now() < deadline:
