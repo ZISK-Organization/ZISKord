@@ -11,6 +11,7 @@ banTime = 300
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
+TOKEN = 'MTA3NDc5MzczMTY5NTMzMzM5Nw.GbEEsy.FchlecbhS2XTLZcWDDY98DSasO3wwtnxbtM8-8'
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -60,6 +61,14 @@ class Bot(commands.Bot):
                 await ctx.channel.send("Channel [" + channelName +"] was not found.")
             else:
                 await channel.send(msg)
+
+        @self.event
+        async def on_message(message):
+            await self.process_commands(message)
+
+            if message.content == "kakakah":
+                # trollíme Kubu
+                await ctx.channel.send("Co se to snažíš vytvořit, že to má reagovat na kakakah?")
 
 
 bot = Bot("!")
