@@ -22,8 +22,7 @@ class Bot(commands.Bot):
         commands.Bot.__init__(self, command_prefix=command_prefix, setlf_bot=False, intents=intents)
         self.remove_command("help")
         self.load_commands()
-        self.help_message = "TODO"
-
+        self.help_message = "Vítej na ZISKordu. Pokud chceš znát deadline, napiš do channelu !deadline. Pokud potřebuješ něco jiného, neboj se zeptat mě, nebo organizátorů.\n"
     async def process_commands(self, message):
         ctx = await self.get_context(message)
         await self.invoke(ctx)
@@ -31,7 +30,10 @@ class Bot(commands.Bot):
     def load_commands(self):
         @self.command(name="help")
         async def _help(ctx):
-            await ctx.channel.send(content=self.help_message)
+            message = self.help_message
+            if 'Organizátor' in map(lambda x: x.name, ctx.message.author.roles):
+                message += "Příkazem !forward mi můžeš napsat zprávu a channel, kde tvou zprávu za tebe vyřídím. (Navštiv channel bot-forward pro více info.)\n"
+            await ctx.channel.send(content=help_message)
 
         @self.command(name="deadline")
         async def deadline(ctx):
