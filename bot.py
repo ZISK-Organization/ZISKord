@@ -77,7 +77,7 @@ class Bot(commands.Bot):
                 for file in message.attachments:
                     for ext in pic_ext:
                         if file.filename.endswith(ext):
-                            url = 'https://api.zisk-go.com/tasks/uploadMeme'
+                            url = 'https://api.zisk-go.com/files/uploadMeme'
                             f = await file.read()
                             resp = requests.post(url, files={file.filename: f})
 
