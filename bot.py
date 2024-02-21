@@ -77,10 +77,22 @@ class Bot(commands.Bot):
                 for file in message.attachments:
                     for ext in pic_ext:
                         if file.filename.endswith(ext):
-                            url = 'https://api.zisk-go.com/files/uploadMeme'
+                            url = 'https://api.zisk-go.com/files/'
                             f = await file.read()
-                            resp = requests.post(url, files={file.filename: f})
+                            resp = requests.post(url, files={'uploadMeme': (file.filename, f)})
+                            print(resp)
+                            resp_filename = 'TODO'
 
+                            data = {
+                                'id': None,
+                                'author': None,
+                                'content': message.content,
+                                'details': 'https://api.zisk-go.com/tasks/files/getMeme?fileName=' + resp_filename,
+                                'creation_date': None,
+                                'threadId': TODO
+                            }
+
+                            resp = requests.post('https://api.zisk-go.com/tasks/discussion/post', data=data)
 
 bot = Bot("!")
 bot.run(TOKEN)
