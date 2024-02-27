@@ -72,27 +72,29 @@ class Bot(commands.Bot):
                 # trollíme Kubu
                 await ctx.channel.send("Co se to snažíš vytvořit, že to má reagovat na kakakah?")
 
-            if ctx.channel.name.endswith('memes') or True:
+            if ctx.channel.name.endswith('memes'):
                 pic_ext = ['.jpg','.png','.jpeg']
                 for file in message.attachments:
                     for ext in pic_ext:
                         if file.filename.endswith(ext):
-                            url = 'https://api.zisk-go.com/files/'
-                            f = await file.read()
-                            resp = requests.post(url, files={'uploadMeme': (file.filename, f)})
-                            print(resp)
-                            resp_filename = 'TODO'
+                            resp = requests.get('https://api.zisk-go.com/discussion/thread?channel=memes&channelType=memes')
 
                             data = {
                                 'id': None,
                                 'author': None,
                                 'content': message.content,
-                                'details': 'https://api.zisk-go.com/tasks/files/getMeme?fileName=' + resp_filename,
-                                'creation_date': None,
-                                'threadId': TODO
+                                #'details': 'https://api.zisk-go.com/tasks/files/getMeme?fileName=' + resp_filename,
+                                'details': file.url,
+                                'creationDate': None,
+                                'threadId': int(resp.json()['id']),
+                                'children': []
                             }
 
-                            resp = requests.post('https://api.zisk-go.com/tasks/discussion/post', data=data)
+                            resp = requests.post('https://api.zisk-go.com/discussion/post', json=data,
+                                                 headers={'Content-type': 'application/json', 'Accept': 'application/json'
+                                                          }
+                            )
+                            print(resp.json())
 
 bot = Bot("!")
 bot.run(TOKEN)
